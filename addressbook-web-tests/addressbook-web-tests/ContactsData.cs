@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace addressbook_web_tests
+namespace WebAddressbookTests
 {
-    class MyGroupData
+    public class ContactsData
     {
         private string fname;
         private string mname = "";
@@ -29,7 +29,7 @@ namespace addressbook_web_tests
         private string phone2 = "";
         private string notes = "";
 
-        public MyGroupData(string fname)
+        public ContactsData(string fname)
         {
             this.fname = fname;
         }
