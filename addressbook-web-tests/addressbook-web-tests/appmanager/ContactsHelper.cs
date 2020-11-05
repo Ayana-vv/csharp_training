@@ -3,54 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 
-
 namespace WebAddressbookTests
 {
-    public class TestBase 
+    public class ContactsHelper : HelperBase
     {
-        protected IWebDriver driver;
-        private StringBuilder verificationErrors;
-        protected string baseURL;
+        public ContactsHelper(ApplicationManager manager) : base(manager)
+        { }
+        public ContactsHelper CreateContact(ContactsData group)
+        {            
+            GoToAddNewContactPage();
+            FillContactForm(group);
+            SubmitContactCreation();
 
-        protected LoginHelper loginHelper;
-        protected NavigationHelper navigator;
-        protected GroupHelper groupHelper;
-
-        [SetUp]
-        public void SetupTest()
-        {
-            driver = new ChromeDriver();
-            baseURL = "http://localhost/addressbook";
-            verificationErrors = new StringBuilder();
-
-            loginHelper = new LoginHelper(driver);
-            navigator = new NavigationHelper(driver, baseURL);
-            groupHelper = new GroupHelper(driver);
+            manager.Navigator.ReturnToHomePage();
+            return this;
         }
-
-        [TearDown]
-        public void TeardownTest()
-        {
-            try
-            {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
-            }
-            Assert.AreEqual("", verificationErrors.ToString());
-        }
-        protected void GoToAddNewContactPage()
+        public ContactsHelper GoToAddNewContactPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
+            return this;
         }
-        protected void FillContactForm(ContactsData group)
+        public ContactsHelper FillContactForm(ContactsData group)
         {
             driver.FindElement(By.Name("firstname")).Click();
             driver.FindElement(By.Name("firstname")).Clear();
@@ -124,15 +101,12 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("notes")).Click();
             driver.FindElement(By.Name("notes")).Clear();
             driver.FindElement(By.Name("notes")).SendKeys(group.Notes);
+            return this;
         }
-        protected void SubmitContactCreation()
+        public ContactsHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
-        }
-        protected void ReturnToHomePage()
-        {
-            driver.FindElement(By.LinkText("home")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
+            return this;
         }
     }
 }

@@ -59,24 +59,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AccountData.cs" />
-    <Compile Include="GroupHelper.cs" />
-    <Compile Include="GroupRemovalTest.cs" />
-    <Compile Include="HelperBase.cs" />
-    <Compile Include="LoginHelper.cs" />
-    <Compile Include="Circle.cs" />
-    <Compile Include="Figure.cs" />
-    <Compile Include="GroupData.cs" />
-    <Compile Include="ContactsData.cs" />
-    <Compile Include="NavigationHelper.cs" />
-    <Compile Include="Square.cs" />
-    <Compile Include="TestBase.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="appmanager\ContactsHelper.cs" />
+    <Compile Include="tests\GroupModificationTests.cs" />
+    <Compile Include="model\AccountData.cs" />
+    <Compile Include="appmanager\ApplicationManager.cs" />
+    <Compile Include="appmanager\GroupHelper.cs" />
+    <Compile Include="tests\GroupRemovalTests.cs" />
+    <Compile Include="appmanager\HelperBase.cs" />
+    <Compile Include="appmanager\LoginHelper.cs" />
+    <Compile Include="model\GroupData.cs" />
+    <Compile Include="model\ContactsData.cs" />
+    <Compile Include="appmanager\NavigationHelper.cs" />
+    <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\..\..\..\..\..\Documents\Visual Studio 2019\october\GroupCreationTests.cs">
-      <Link>GroupCreationTests.cs</Link>
+      <Link>tests\GroupCreationTests.cs</Link>
     </Compile>
-    <Compile Include="MyContactCreationTests.cs" />
+    <Compile Include="tests\MyContactCreationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />

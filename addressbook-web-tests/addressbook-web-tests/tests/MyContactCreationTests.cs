@@ -3,7 +3,6 @@ using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using addressbook_web_tests;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -14,9 +13,6 @@ namespace WebAddressbookTests
         [Test]
         public void MyContactCreationTests1()
         {
-            navigator.GoToHomePage();
-            loginHelper.Login(new AccountData("admin", "secret"));
-            GoToAddNewContactPage();
             ContactsData group = new ContactsData("sss");
             group.Mname = "MMM";
             group.Lname = "LLL";
@@ -37,9 +33,24 @@ namespace WebAddressbookTests
             group.Address2 = "test_1";
             group.Phone2 = "555";
             group.Notes = "test_2";
-            FillContactForm(group);
-            SubmitContactCreation();
-            ReturnToHomePage();
+            app.Contacts.CreateContact(group);
+        }
+        [Test]
+        public void MyContactEmptyCreationTest()
+        {
+            ContactsData group = new ContactsData("");
+            group.Mname = "";
+            group.Lname = "";
+            group.Nname = "";
+            group.Title = "";
+            group.Company = "";
+            group.Address = "";
+            group.Home = "";
+            group.Mobile = "";
+            group.Work = "";
+            group.Fax = "";
+            group.Email = "";
+            app.Contacts.CreateContact(group);
         }
     }
 }
