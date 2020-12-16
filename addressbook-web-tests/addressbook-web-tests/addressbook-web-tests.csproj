@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appmanager\ContactsHelper.cs" />
-    <Compile Include="model\MyContactModificationTests.cs" />
+    <Compile Include="tests\MyContactModificationTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
