@@ -16,10 +16,10 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="WebAddressbookTests.GroupCreationTests" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>C:\Users\ayana.baazan\Documents\Visual Studio 2019\october\GroupCreationTests.cs</FileName>
+      <FileName>tests\GroupCreationTests.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="WebAddressbookTests.GroupRemovalTests" Collapsed="true">

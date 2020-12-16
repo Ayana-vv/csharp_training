@@ -73,11 +73,9 @@
     <Compile Include="appmanager\NavigationHelper.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\..\..\..\..\..\..\Documents\Visual Studio 2019\october\GroupCreationTests.cs">
-      <Link>tests\GroupCreationTests.cs</Link>
-    </Compile>
     <Compile Include="tests\MyContactCreationTests.cs" />
     <Compile Include="tests\MyContactRemovalTests.cs" />
+    <Compile Include="tests\GroupCreationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
