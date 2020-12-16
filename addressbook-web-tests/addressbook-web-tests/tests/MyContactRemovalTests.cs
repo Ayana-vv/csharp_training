@@ -15,7 +15,7 @@ namespace WebAddressbookTests
         [Test]
         public void MyContactRemovalTest()
         {
-            app.Contacts.Remove(4);
+            app.Contacts.Remove(3);
         }
     }
 }
