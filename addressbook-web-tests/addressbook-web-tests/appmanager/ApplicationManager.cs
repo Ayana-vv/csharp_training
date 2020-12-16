@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -13,12 +14,13 @@ namespace WebAddressbookTests
     {
         protected IWebDriver driver;
         protected string baseURL;
+        protected bool acceptNextAlert = true;
 
         protected LoginHelper loginHelper;
         protected NavigationHelper navigator;
         protected GroupHelper groupHelper;
         protected ContactsHelper contactsHelper;
-
+        
         public ApplicationManager()
         {
             driver = new ChromeDriver();
@@ -38,15 +40,42 @@ namespace WebAddressbookTests
         }
         public void Stop()
         {
-            try
             {
-                driver.Quit();
-            }
-            catch (Exception)
-            {
-                // Ignore errors if unable to close the browser
+                try
+                {
+                    driver.Quit();
+                }
+                catch (Exception)
+                {
+                    // Ignore errors if unable to close the browser
+                }
+                //Assert.AreEqual("", VerificationErrors.ToString());
             }
         }
+        public bool IsElementPresent(By by)
+            {
+                try
+                {
+                    driver.FindElement(by);
+                    return true;
+                }
+                catch (NoSuchElementException)
+                {
+                    return false;
+                }
+            }
+        public bool IsAlertPresent()
+            {
+                try
+                {
+                    driver.SwitchTo().Alert();
+                    return true;
+                }
+                catch (NoAlertPresentException)
+                {
+                    return false;
+                }
+            }
         public LoginHelper Auth
         {
             get
@@ -73,6 +102,34 @@ namespace WebAddressbookTests
             get
             {
                 return contactsHelper;
+            }
+        }
+
+        //public object VerificationErrors 
+        //{ 
+        //    get; 
+        //    private set; 
+        //}
+
+        public string CloseAlertAndGetItsText()
+        {
+            try
+            {
+                IAlert alert = driver.SwitchTo().Alert();
+                string alertText = alert.Text;
+                if (acceptNextAlert)
+                {
+                    alert.Accept();
+                }
+                else
+                {
+                    alert.Dismiss();
+                }
+                return alertText;
+            }
+            finally
+            {
+                acceptNextAlert = true;
             }
         }
     }

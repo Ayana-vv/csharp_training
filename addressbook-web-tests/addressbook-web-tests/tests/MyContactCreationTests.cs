@@ -13,44 +13,44 @@ namespace WebAddressbookTests
         [Test]
         public void MyContactCreationTests1()
         {
-            ContactsData group = new ContactsData("sss");
-            group.Mname = "MMM";
-            group.Lname = "LLL";
-            group.Nname = "NNN";
-            group.Title = "eee";
-            group.Company = "f";
-            group.Address = "g";
-            group.Home = "12345";
-            group.Mobile = "98765";
-            group.Work = "444";
-            group.Fax = "333";
-            group.Email = "j@kk.com";
-            group.Email2 = "i@ll.com";
-            group.Email3 = "m@nn.com";
-            group.Homepage = "ooo5";
-            group.Byear = "1990";
-            group.Ayear = "2020";
-            group.Address2 = "test_1";
-            group.Phone2 = "555";
-            group.Notes = "test_2";
-            app.Contacts.CreateContact(group);
+            ContactsData contact = new ContactsData("sss");
+            contact.Mname = "MMM";
+            contact.Lname = "LLL";
+            contact.Nname = "NNN";
+            contact.Title = "eee";
+            contact.Company = "f";
+            contact.Address = "g";
+            contact.Home = "12345";
+            contact.Mobile = "98765";
+            contact.Work = "444";
+            contact.Fax = "333";
+            contact.Email = "j@kk.com";
+            contact.Email2 = "i@ll.com";
+            contact.Email3 = "m@nn.com";
+            contact.Homepage = "ooo5";
+            contact.Byear = "1990";
+            contact.Ayear = "2020";
+            contact.Address2 = "test_1";
+            contact.Phone2 = "555";
+            contact.Notes = "test_2";
+            app.Contacts.CreateContact(contact);
         }
         [Test]
         public void MyContactEmptyCreationTest()
         {
-            ContactsData group = new ContactsData("");
-            group.Mname = "";
-            group.Lname = "";
-            group.Nname = "";
-            group.Title = "";
-            group.Company = "";
-            group.Address = "";
-            group.Home = "";
-            group.Mobile = "";
-            group.Work = "";
-            group.Fax = "";
-            group.Email = "";
-            app.Contacts.CreateContact(group);
+            ContactsData contact = new ContactsData("");
+            contact.Mname = "";
+            contact.Lname = "";
+            contact.Nname = "";
+            contact.Title = "";
+            contact.Company = "";
+            contact.Address = "";
+            contact.Home = "";
+            contact.Mobile = "";
+            contact.Work = "";
+            contact.Fax = "";
+            contact.Email = "";
+            app.Contacts.CreateContact(contact);
         }
     }
 }

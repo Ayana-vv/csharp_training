@@ -28,8 +28,6 @@ namespace WebAddressbookTests
         public void ReturnToHomePage()
         {
             driver.FindElement(By.LinkText("home")).Click();
-            driver.FindElement(By.LinkText("Logout")).Click();
         }
-
     }
 }

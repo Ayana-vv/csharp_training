@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appmanager\ContactsHelper.cs" />
+    <Compile Include="model\MyContactModificationTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
     <Compile Include="model\AccountData.cs" />
     <Compile Include="appmanager\ApplicationManager.cs" />
@@ -76,6 +77,7 @@
       <Link>tests\GroupCreationTests.cs</Link>
     </Compile>
     <Compile Include="tests\MyContactCreationTests.cs" />
+    <Compile Include="tests\MyContactRemovalTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
