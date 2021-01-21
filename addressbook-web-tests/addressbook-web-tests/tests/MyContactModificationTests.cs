@@ -14,15 +14,14 @@ namespace WebAddressbookTests
         public void MyContactModificationTest()
         {
             ContactsData newData1 = new ContactsData("ttt");
-            newData1.Mname = "HHH";
-            newData1.Lname = "KKK";
-            newData1.Nname = "PPP";
-            newData1.Title = "ddd";
-            newData1.Company = "zzzzzzzzzzzzz";
-            newData1.Address = "cccc";
-            newData1.Home = "+7-0258";
-            newData1.Mobile = "+7-999-058";
-            newData1.Email = "aaaaa@vv.com";
+            newData1.Mname = null;
+            newData1.Lname = null;
+            newData1.Nname = null;
+            newData1.Title = null;
+            newData1.Company = "ZZZZZZZ";
+            newData1.Address = null;
+            newData1.Home = null;
+            newData1.Mobile = "+7-777-88";
 
             app.Contacts.Modify(4, newData1);
         }
