@@ -35,8 +35,7 @@ namespace WebAddressbookTests
             contactsHelper = new ContactsHelper(this);
         }
         ~ApplicationManager() 
-        {
-            {
+        {            
                 try
                 {
                     driver.Quit();
@@ -45,8 +44,7 @@ namespace WebAddressbookTests
                 {
                     // Ignore errors if unable to close the browser
                 }
-                //Assert.AreEqual("", VerificationErrors.ToString());
-            }
+                //Assert.AreEqual("", VerificationErrors.ToString());            
         }
         public static ApplicationManager GetInstance()
         {
