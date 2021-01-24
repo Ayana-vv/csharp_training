@@ -13,6 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void MyContactModificationTest()
         {
+            app.Contacts.CheckContacts(1);
             ContactsData newData1 = new ContactsData("ttt");
             newData1.Mname = null;
             newData1.Lname = null;

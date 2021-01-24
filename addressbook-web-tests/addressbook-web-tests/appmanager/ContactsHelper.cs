@@ -26,19 +26,20 @@ namespace WebAddressbookTests
             return this;
         }
         public ContactsHelper Remove(int p)
-        {
+        {            
             SelectContact(p);
             RemoveContact();
 
             manager.CloseAlertAndGetItsText();
             manager.Navigator.ReturnToHomePage();
             return this;
-        }
-        public ContactsHelper Modify(int p, ContactsData newData1)
+        }       
+
+        public ContactsHelper Modify(int m, ContactsData newData1)
         {
             manager.Navigator.ReturnToHomePage();
-
-            SelectContact(p);
+                        
+            SelectContact(1);
             InitContactModification();
             FillContactForm(newData1);
             SubmitContactModification();
@@ -100,6 +101,28 @@ namespace WebAddressbookTests
                 + index + "]")).Click();
             return this;
         }
+        public ContactsHelper CheckContacts(int index)
+        {
+            manager.Navigator.ReturnToHomePage();
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])["
+                + index + "]")))
+            {
+                return this;
+            }
+            else
+            {
+                ApplicationManager app = ApplicationManager.GetInstance();
+                GoToAddNewContactPage();
+                ContactsData contact = new ContactsData("TTT");
+                contact.Mname = "YYY";
+                contact.Lname = "RRR";                
+                contact.Email = "j@yy.com";
+                contact.Byear = "1988";
+                contact.Phone2 = "111";
+                app.Contacts.CreateContact(contact);
+            }
+            return this;
+        }
         public ContactsHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();            
@@ -113,7 +136,7 @@ namespace WebAddressbookTests
         }
         public ContactsHelper InitContactModification()
         {
-            driver.FindElement(By.XPath("(//img[@alt='Edit'])[2]")).Click();
+            driver.FindElement(By.XPath("(//img[@alt='Edit'])[1]")).Click();
             return this;
         }
     }

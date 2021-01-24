@@ -30,6 +30,7 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
+            CheckGroup(v);
             SelectGroup(v);
             InitGroupModification();
             FillGroupForm(newData);
@@ -42,11 +43,13 @@ namespace WebAddressbookTests
         {
             manager.Navigator.GoToGroupsPage();
 
+            CheckGroup(v);
             SelectGroup(v);
             RemoveGroup();
             ReturnToGroupsPage();
             return this;
-        }
+        }       
+
         public GroupHelper InitNewGroupCreation()
         {
             driver.FindElement(By.Name("new")).Click();
@@ -76,6 +79,23 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" 
                 + index + "]")).Click();
+            return this;
+        }
+        public GroupHelper CheckGroup(int index)
+        {
+            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])["
+                + index + "]")))
+            {
+                return this;
+            }
+            else
+            {
+                ApplicationManager app = ApplicationManager.GetInstance();
+                GroupData group = new GroupData("sss");
+                group.Header = "ddd";
+                group.Footer = "fff";
+                app.Groups.Create(group);
+            }
             return this;
         }
         public GroupHelper RemoveGroup()
