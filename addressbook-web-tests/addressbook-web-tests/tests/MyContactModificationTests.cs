@@ -24,7 +24,7 @@ namespace WebAddressbookTests
             newData1.Home = null;
             newData1.Mobile = "+7-777-88";
 
-            app.Contacts.Modify(4, newData1);
+            app.Contacts.Modify(1, newData1);
         }
     }
 }
