@@ -36,6 +36,10 @@ namespace WebAddressbookTests
         }
         public void ReturnToHomePage()
         {
+            if (driver.Url == baseURL && IsElementPresent(By.Name("Send e-Mail")))
+            {
+                return;
+            }
             driver.FindElement(By.LinkText("home")).Click();
         }
     }

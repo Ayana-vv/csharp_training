@@ -83,8 +83,7 @@ namespace WebAddressbookTests
         public GroupHelper CheckGroup(int index)
         {
             manager.Navigator.GoToGroupsPage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])["
-                + index + "]")))
+            if (IsElementPresent(By.XPath("//input[@name='selected[]']")))
             {
                 return this;
             }
