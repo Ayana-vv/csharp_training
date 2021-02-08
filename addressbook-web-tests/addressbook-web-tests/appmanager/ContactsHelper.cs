@@ -39,14 +39,15 @@ namespace WebAddressbookTests
         {
             manager.Navigator.ReturnToHomePage();
                         
-            SelectContact(1);
+            SelectContact(m);
             InitContactModification();
             FillContactForm(newData1);
             SubmitContactModification();
 
             manager.Navigator.ReturnToHomePage();
             return this;
-        }
+        }      
+
         public ContactsHelper GoToAddNewContactPage()
         {
             driver.FindElement(By.LinkText("add new")).Click();
@@ -98,14 +99,13 @@ namespace WebAddressbookTests
         public ContactsHelper SelectContact(int index)
         {
             driver.FindElement(By.XPath("(//input[@name='selected[]'])[" 
-                + index + "]")).Click();
+                + (index+1) + "]")).Click();
             return this;
         }
         public ContactsHelper CheckContacts(int index)
         {
             manager.Navigator.ReturnToHomePage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])["
-                + index + "]")))
+            if (IsElementPresent(By.XPath("//input[@name='selected[]']")))
             {
                 return this;
             }
@@ -138,6 +138,24 @@ namespace WebAddressbookTests
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[1]")).Click();
             return this;
+        }
+        public List<ContactsData> GetContactList()
+        {
+            List<ContactsData> contacts = new List<ContactsData>();
+
+            manager.Navigator.ReturnToHomePage();
+
+            ICollection<IWebElement> elements = 
+                driver.FindElements(By.Name("entry"));
+            foreach (IWebElement element in elements)
+            {
+                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+
+                var addName = new ContactsData(cells[2].Text);
+                addName.Lname = cells[1].Text;
+                contacts.Add(addName);
+            }
+            return contacts;
         }
     }
 }

@@ -13,7 +13,7 @@ namespace WebAddressbookTests
         [Test]
         public void MyContactModificationTest()
         {
-            app.Contacts.CheckContacts(1);
+            app.Contacts.CheckContacts(0);
             ContactsData newData1 = new ContactsData("ttt");
             newData1.Mname = null;
             newData1.Lname = null;
@@ -24,7 +24,15 @@ namespace WebAddressbookTests
             newData1.Home = null;
             newData1.Mobile = "+7-777-88";
 
-            app.Contacts.Modify(1, newData1);
+            List<ContactsData> oldContacts = app.Contacts.GetContactList();
+
+            app.Contacts.Modify(0, newData1);
+
+            List<ContactsData> newContacts = app.Contacts.GetContactList();
+            oldContacts[0].Fname = newData1.Fname;
+            oldContacts.Sort();
+            newContacts.Sort();
+            Assert.AreEqual(oldContacts, newContacts);
         }
     }
 }
