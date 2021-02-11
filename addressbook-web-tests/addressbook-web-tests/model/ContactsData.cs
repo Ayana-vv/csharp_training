@@ -26,11 +26,11 @@ namespace WebAddressbookTests
         }
         public override int GetHashCode()
         {
-            return Fname.GetHashCode();
+            return (Fname + Lname).GetHashCode();
         }
         public override string ToString()
         {
-            return "fname=" +Fname;
+            return "fname=" +Fname+ "  " + "lname=" +Lname;
         }
         public int CompareTo(ContactsData other)
         {
@@ -38,7 +38,7 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return Fname.CompareTo(other.Fname);
+            return (Fname + Lname).CompareTo(other.Fname + other.Lname);
         }
         public string Fname { get; set; }
         public string Mname { get; set; }
