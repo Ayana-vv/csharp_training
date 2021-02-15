@@ -8,9 +8,11 @@ namespace WebAddressbookTests
 {
     public class ContactsData : IEquatable<ContactsData>, IComparable<ContactsData>
     {
+        private string fname;
+        private string lname = "";
         public ContactsData(string fname)
         {
-            Fname = fname;
+            this.fname = fname;
         }
         public bool Equals(ContactsData other)
         {
@@ -26,11 +28,12 @@ namespace WebAddressbookTests
         }
         public override int GetHashCode()
         {
+            //return 0;
             return (Fname + Lname).GetHashCode();
         }
         public override string ToString()
         {
-            return "fname=" +Fname+ "  " + "lname=" +Lname;
+            return "fname=" + Fname + "  " + "lname=" + Lname;
         }
         public int CompareTo(ContactsData other)
         {
@@ -38,11 +41,38 @@ namespace WebAddressbookTests
             {
                 return 1;
             }
-            return (Fname + Lname).CompareTo(other.Fname + other.Lname);
+            if (Lname.CompareTo(other.Lname) != 0)
+            {
+                return Lname.CompareTo(other.Lname);
+            }
+            return Fname.CompareTo(other.Fname);
+            //return (Fname + Lname).CompareTo(other.Fname + other.Lname);
         }
-        public string Fname { get; set; }
+        public string Fname
+        {
+            get
+            {
+                return fname;
+            }
+            set
+            {
+                fname = value;
+            }
+        }
+        public string Lname
+        {
+            get
+            {
+                return lname;
+            }
+            set
+            {
+                lname = value;
+            }
+        }
+        //public string Fname { get; set; }
         public string Mname { get; set; }
-        public string Lname { get; set; }
+        //public string Lname { get; set; }
         public string Nname { get; set; }
         public string Title { get; set; }
         public string Company { get; set; }
