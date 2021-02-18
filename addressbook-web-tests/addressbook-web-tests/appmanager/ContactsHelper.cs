@@ -93,7 +93,7 @@ namespace WebAddressbookTests
         public ContactsHelper SubmitContactCreation()
         {
             driver.FindElement(By.XPath("(//input[@name='submit'])[2]")).Click();
-            //contactCache = null;
+            contactCache = null;
             return this;
         }
         public ContactsHelper SelectContact(int index)
@@ -113,9 +113,8 @@ namespace WebAddressbookTests
             {
                 ApplicationManager app = ApplicationManager.GetInstance();
                 GoToAddNewContactPage();
-                ContactsData contact = new ContactsData("TTT");
-                contact.Mname = "YYY";
-                contact.Lname = "RRR";                
+                ContactsData contact = new ContactsData("TTT", "RRR");
+                contact.Mname = "YYY";          
                 contact.Email = "j@yy.com";
                 contact.Byear = "1988";
                 contact.Phone2 = "111";
@@ -126,13 +125,13 @@ namespace WebAddressbookTests
         public ContactsHelper RemoveContact()
         {
             driver.FindElement(By.XPath("//input[@value='Delete']")).Click();
-            //contactCache = null;
+            contactCache = null;
             return this;
         }
         public ContactsHelper SubmitContactModification()
         {
             driver.FindElement(By.Name("update")).Click();
-            //contactCache = null;
+            contactCache = null;
             return this;
         }
         public ContactsHelper InitContactModification()
@@ -140,51 +139,28 @@ namespace WebAddressbookTests
             driver.FindElement(By.XPath("(//img[@alt='Edit'])[1]")).Click();
             return this;
         }
-        //private List<ContactsData> contactCache = null;
+        private List<ContactsData> contactCache = null;
         public List<ContactsData> GetContactList()
         {
-            List<ContactsData> contacts = new List<ContactsData>();
-
-            manager.Navigator.ReturnToHomePage();
-
-            ICollection<IWebElement> elements =
-                driver.FindElements(By.Name("entry"));
-            foreach (IWebElement element in elements)
+            if (contactCache == null)
             {
-                IList<IWebElement> cells = element.FindElements(By.TagName("td"));
+                contactCache = new List<ContactsData>();
 
-                var addName = new ContactsData(cells[2].Text);
-                addName.Lname = cells[1].Text;
-                contacts.Add(addName);
+                manager.Navigator.ReturnToHomePage();
+
+                ICollection<IWebElement> elements =
+                    driver.FindElements(By.Name("entry"));
+                foreach (IWebElement element in elements)
+                {
+                    var cells = element.FindElements(By.CssSelector("td"));
+
+                    contactCache.Add(new ContactsData(cells[2].Text, cells[1].Text)
+                    {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                    });
+                }
             }
-            return contacts;
-            //if (contactCache == null)
-            //{
-            //    contactCache = new List<ContactsData>();
-
-            //    manager.Navigator.ReturnToHomePage();
-
-            //    ICollection<IWebElement> elements =
-            //        driver.FindElements(By.Name("entry"));
-            //    foreach (IWebElement element in elements)
-            //    {                    
-            //        IList<IWebElement> cells = element.FindElements(By.TagName("td"));
-
-            //        var addName = new ContactsData(cells[2].Text);
-            //        addName.Lname = cells[1].Text;
-            //        contactCache.Add(new ContactsData(cells[2].Text)
-            //        {
-            //            Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-            //        });
-
-
-
-            //        //var addName = new ContactsData(cells[2].Text);
-            //        //addName.Lname = cells[1].Text;
-            //        //contactCache.Add(addName);
-            //    }
-            //}
-            //return new List<ContactsData>(contactCache);
+            return new List<ContactsData>(contactCache);
         }
         public int GetContactCount()
         {
