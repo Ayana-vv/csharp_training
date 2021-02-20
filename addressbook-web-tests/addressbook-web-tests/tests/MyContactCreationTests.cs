@@ -31,7 +31,6 @@ namespace WebAddressbookTests
             contact.Byear = "1990";
             contact.Ayear = "2020";
             contact.Address2 = "test_1";
-            contact.Phone2 = "555";
             contact.Notes = "test_2";
 
             List<ContactsData> oldContacts = app.Contacts.GetContactList();

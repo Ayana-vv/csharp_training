@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="appmanager\ContactsHelper.cs" />
     <Compile Include="tests\AuthTestBase.cs" />
+    <Compile Include="tests\ContactInformationTests.cs" />
     <Compile Include="tests\LoginTests.cs" />
     <Compile Include="tests\MyContactModificationTests.cs" />
     <Compile Include="tests\GroupModificationTests.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="model\GroupData.cs" />
     <Compile Include="model\ContactsData.cs" />
     <Compile Include="appmanager\NavigationHelper.cs" />
+    <Compile Include="tests\SearchTests.cs" />
     <Compile Include="tests\TestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="tests\MyContactCreationTests.cs" />
