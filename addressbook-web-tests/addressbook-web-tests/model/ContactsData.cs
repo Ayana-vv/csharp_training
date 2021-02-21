@@ -107,13 +107,13 @@ namespace WebAddressbookTests
             }
         }
 
-        private string CleanUp(string phone)
+        private string CleanUp(string text)
         {
-            if (phone == null || phone == "")
+            if (text == null || text == "")
             {
                 return "";
             }
-            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
+            return Regex.Replace(text, "[ -()]", "") + "\r\n";
         }
     }
 }

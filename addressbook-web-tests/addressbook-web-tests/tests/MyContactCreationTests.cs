@@ -28,8 +28,8 @@ namespace WebAddressbookTests
             contact.Email2 = "i@ll.com";
             contact.Email3 = "m@nn.com";
             contact.Homepage = "ooo5";
-            contact.Byear = "1990";
-            contact.Ayear = "2020";
+            //contact.Byear = "1990";
+            //contact.Ayear = "2020";
             contact.Address2 = "test_1";
             contact.Phone2 = "7654";
             contact.Notes = "test_2";
