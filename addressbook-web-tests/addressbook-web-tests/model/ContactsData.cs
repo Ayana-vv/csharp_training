@@ -80,7 +80,7 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work)).Trim();
+                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
                 }
             }
             set

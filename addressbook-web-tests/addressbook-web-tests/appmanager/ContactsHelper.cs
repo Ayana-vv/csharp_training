@@ -36,6 +36,7 @@ namespace WebAddressbookTests
                 AllEmails = allEmails
             };
         }
+
         public ContactsData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.GoToHomePage();
@@ -47,6 +48,7 @@ namespace WebAddressbookTests
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string work = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
@@ -58,6 +60,7 @@ namespace WebAddressbookTests
                 Home = home, 
                 Mobile = mobile,
                 Work = work,
+                Phone2 = phone2,
                 Email = email,
                 Email2 = email2,
                 Email3 = email3
@@ -133,6 +136,7 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("amonth")).Click();
             Type(By.Name("ayear"), contact.Ayear);
             Type(By.Name("address2"), contact.Address2);
+            Type(By.Name("phone2"), contact.Phone2);
             Type(By.Name("notes"), contact.Notes);
             return this;
         }       
@@ -213,12 +217,14 @@ namespace WebAddressbookTests
         {
             return driver.FindElements(By.Name("entry")).Count;
         }
-        public int GetNumberOfSearchRezults()
+        public int GetNumberOfSearchResults()
         {
             manager.Navigator.ReturnToHomePage();
-            string text = driver.FindElement(By.TagName("label")).Text;
-            Match m = new Regex(@"\d+").Match(text);
-            return Int32.Parse(m.Value);
+            string number = driver.FindElement(By.CssSelector("span#search_count")).Text;
+            return Int32.Parse(number);
+            //string text = driver.FindElement(By.TagName("label")).Text;
+            //Match m = new Regex(@"\d+").Match(text);
+            //return Int32.Parse(m.Value);
         }
     }
 }
