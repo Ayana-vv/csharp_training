@@ -8,7 +8,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -36,13 +36,26 @@ namespace WebAddressbookTests
                 AllEmails = allEmails
             };
         }
-        public string GetContactInformationInFormEdit(int v)
+        public ContactsData GetContactInformationFromViewForm(int index)
         {
             manager.Navigator.GoToHomePage();
-            InitContactModification(v);
+            OpenContactView(0);
+            string InfoOfContact = driver.FindElement(By.CssSelector("div#content")).Text;
+            string fname = "";
+            string lname = "";
+
+            return new ContactsData(fname, lname)
+            {
+                fullInfo = InfoOfContact
+            };
+        }
+        public ContactsData GetContactInformationFromEditForm(int index)
+        {
+            manager.Navigator.GoToHomePage();
+            InitContactModification(index);
             string fname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string mname = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string lname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
+            string mname = driver.FindElement(By.Name("middlename")).GetAttribute("value");
             string nname = driver.FindElement(By.Name("nickname")).GetAttribute("value");
 
             string title = driver.FindElement(By.Name("title")).GetAttribute("value");
@@ -52,67 +65,64 @@ namespace WebAddressbookTests
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string work = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
+            //string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-
-            string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
-            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
-            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
-            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
-
-            return (fname + " " + mname + " " + lname + "\r\n"
-                + nname + "\r\n"
-                + title + "\r\n"
-                + company + "\r\n"
-                + address + "\r\n\r\n"
-
-                + "H: " + home + "\r\n"
-                + "M: " + mobile + "\r\n"
-                + "W: " + work + "\r\n"
-                + "F: " + fax + "\r\n\r\n"
-
-                + email + "\r\n"
-                + email2 + "\r\n"
-                + email3 + "\r\n"
-                + "Homepage:" + "\r\n" + homepage + "\r\n\r\n\r\n"
-                + address2 + "\r\n\r\n"
-                + "P: " + phone2 + "\r\n\r\n"
-                + notes).Trim();
-        }
-
-        public ContactsData GetContactInformationFromEditForm(int index)
-        {
-            manager.Navigator.GoToHomePage();
-            InitContactModification(index);
-            string fname = driver.FindElement(By.Name("firstname")).GetAttribute("value");
-            string lname = driver.FindElement(By.Name("lastname")).GetAttribute("value");
-            string address = driver.FindElement(By.Name("address")).GetAttribute("value");
-
-            string home = driver.FindElement(By.Name("home")).GetAttribute("value");
-            string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
-            string work = driver.FindElement(By.Name("work")).GetAttribute("value");
-            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
-
-            string email = driver.FindElement(By.Name("email")).GetAttribute("value");
-            string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
-            string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-
+                       
             return new ContactsData(fname, lname)
             {
+                Mname = mname,
+                Nname = nname,
+                Title = title,
+                Company = company,
                 Address = address, 
                 Home = home, 
                 Mobile = mobile,
                 Work = work,
-                Phone2 = phone2,
                 Email = email,
                 Email2 = email2,
-                Email3 = email3
-            };
-        }
+                Email3 = email3,
 
+                fullInfo = fname + " " + mname + " " + lname + "\r\n" + nname + "\r\n" +
+                title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" +
+                EditPhone(home) + EditPhone(mobile) + EditPhone(work) + "\r\n" +
+                EditEmail(email) + EditEmail(email2) + EditEmail(email3)
+            };
+            string EditPhone(string Phone)
+            {
+                if (Phone != "")
+                {
+                    if (Phone == home || Phone == mobile)
+                    {
+                        if (Phone == home )
+                        {
+                            return "H: " + Phone + "\r\n";
+                        }
+                        return "M: " + Phone + "\r\n";
+                    }
+                    return "W: " + Phone + "\r\n";
+                }
+                return Phone;
+            }
+            string EditEmail(string Email)
+            {
+                if (Email != "")
+                {
+                    if (Email == email || Email == email2)
+                    {
+                        if (Email == home)
+                        {
+                            return Email + "\r\n";
+                        }
+                        return Email + "\r\n";
+                    }
+                    return Email + "\r\n";
+                }
+                return Email;
+            }
+        }
         public ContactsHelper CreateContact(ContactsData contact)
         {
             GoToAddNewContactPage();
@@ -166,20 +176,8 @@ namespace WebAddressbookTests
             Type(By.Name("email2"), contact.Email2);
             Type(By.Name("email3"), contact.Email3);
             Type(By.Name("homepage"), contact.Homepage);
-            //driver.FindElement(By.Name("bday")).Click();
-            //new SelectElement(driver.FindElement(By.Name("bday"))).SelectByText("10");
-            //driver.FindElement(By.Name("bday")).Click();
-            //driver.FindElement(By.Name("bmonth")).Click();
-            //new SelectElement(driver.FindElement(By.Name("bmonth"))).SelectByText("January");
-            //driver.FindElement(By.Name("bmonth")).Click();
 
-            Type(By.Name("byear"), contact.Byear);            
-            //driver.FindElement(By.Name("aday")).Click();
-            //new SelectElement(driver.FindElement(By.Name("aday"))).SelectByText("10");
-            //driver.FindElement(By.Name("aday")).Click();
-            //driver.FindElement(By.Name("amonth")).Click();
-            //new SelectElement(driver.FindElement(By.Name("amonth"))).SelectByText("January");
-            //driver.FindElement(By.Name("amonth")).Click();
+            Type(By.Name("byear"), contact.Byear);  
             Type(By.Name("ayear"), contact.Ayear);
             Type(By.Name("address2"), contact.Address2);
             Type(By.Name("phone2"), contact.Phone2);
@@ -273,16 +271,6 @@ namespace WebAddressbookTests
             manager.Navigator.ReturnToHomePage();
             string number = driver.FindElement(By.CssSelector("span#search_count")).Text;
             return Int32.Parse(number);
-            //string text = driver.FindElement(By.TagName("label")).Text;
-            //Match m = new Regex(@"\d+").Match(text);
-            //return Int32.Parse(m.Value);
-        }
-        public string GetContactInformationFromViewForm(int v)
-        {
-            manager.Navigator.ReturnToHomePage();
-            OpenContactView(v);
-            string fullInfo = driver.FindElement(By.Id("content")).Text;
-            return fullInfo;
         }
     }
 }

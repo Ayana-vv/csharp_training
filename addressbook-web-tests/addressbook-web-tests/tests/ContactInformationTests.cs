@@ -26,10 +26,10 @@ namespace WebAddressbookTests
         [Test]
         public void TestContactInformation_OnViewForm()
         {
-            string fromViewF = app.Contacts.GetContactInformationFromViewForm(0);
-            string fromEditF = app.Contacts.GetContactInformationInFormEdit(0);
+            ContactsData fromEditF = app.Contacts.GetContactInformationFromEditForm(0);
+            ContactsData fromViewF = app.Contacts.GetContactInformationFromViewForm(0);
 
-            Assert.AreEqual(fromViewF, fromEditF);
+            Assert.AreEqual(fromEditF.FullInfo, fromViewF.FullInfo);
         }
     }
 }

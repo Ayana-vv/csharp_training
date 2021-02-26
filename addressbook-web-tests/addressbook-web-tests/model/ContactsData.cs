@@ -9,8 +9,9 @@ namespace WebAddressbookTests
 {
     public class ContactsData : IEquatable<ContactsData>, IComparable<ContactsData>
     {
-        private string allPhones;
+        public string allPhones;
         public string allEmails;
+        public string fullInfo;
 
         public ContactsData(string fname, string lname)
         {
@@ -97,7 +98,8 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Home) + CleanUp(Mobile) + CleanUp(Work) + CleanUp(Phone2)).Trim();
+                    return (CleanUp(Home) + "\r\n" + CleanUp(Mobile) + "\r\n" +
+                        CleanUp(Work) + "\r\n" + CleanUp(Phone2)).Trim();
                 }
             }
             set
@@ -115,7 +117,8 @@ namespace WebAddressbookTests
                 }
                 else
                 {
-                    return (CleanUp(Email) + CleanUp(Email2) + CleanUp(Email3)).Trim();
+                    return (CleanUp(Email) + "\r\n" + CleanUp(Email2) + "\r\n" + 
+                        CleanUp(Email3)).Trim();
                 }
             }
             set
@@ -123,14 +126,24 @@ namespace WebAddressbookTests
                 allEmails = value;
             }
         }
-
-        private string CleanUp(string text)
+        public string CleanUp(string phone)
         {
-            if (text == null || text == "")
+            if (phone == null || phone == "")
             {
                 return "";
             }
-            return Regex.Replace(text, "[ -()]", "") + "\r\n";
+            return Regex.Replace(phone, "[ -() ]", "") + "\r\n";
+        }
+        public string FullInfo
+        {
+            get
+            { 
+                return (CleanUp(fullInfo)).Trim();
+            }
+            set
+            {
+                fullInfo = value;
+            }
         }
     }
 }
