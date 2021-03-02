@@ -49,7 +49,12 @@ namespace WebAddressbookTests
                 new XmlSerializer(typeof(List<ContactsData>))
                 .Deserialize(new StreamReader(@"contacts.xml"));
         }
-        [Test, TestCaseSource("ContactsDataFromXmlFile")]
+        public static IEnumerable<ContactsData> ContactsDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactsData>>(
+                 File.ReadAllText(@"contacts.json"));
+        }
+        [Test, TestCaseSource("ContactsDataFromJsonFile")]
         public void MyContactCreationTests1(ContactsData contact)
         {
 
