@@ -133,15 +133,25 @@ namespace WebAddressbookTests
             return this;
         }
         public ContactsHelper Remove(int p)
-        {            
+        {
+            manager.Navigator.ReturnToHomePage();
             SelectContact(p);
             RemoveContact();
 
             manager.CloseAlertAndGetItsText();
             manager.Navigator.ReturnToHomePage();
             return this;
-        }       
+        }
+        public ContactsHelper RemoveС(ContactsData contact)
+        {
+            manager.Navigator.ReturnToHomePage();
+            SelectContact(contact.Id);
+            RemoveContact();
 
+            manager.CloseAlertAndGetItsText();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
         public ContactsHelper Modify(int m, ContactsData newData1)
         {
             manager.Navigator.ReturnToHomePage();
@@ -151,6 +161,16 @@ namespace WebAddressbookTests
             FillContactForm(newData1);
             SubmitContactModification();
 
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+        public ContactsHelper ModifyC(ContactsData contact, ContactsData newData1)
+        {
+            manager.Navigator.ReturnToHomePage();
+            SelectContact(contact.Id);
+            InitContactModification(contact.Id);
+            FillContactForm(newData1);
+            SubmitContactModification();
             manager.Navigator.ReturnToHomePage();
             return this;
         }
@@ -197,6 +217,11 @@ namespace WebAddressbookTests
                 + (index+1) + "]")).Click();
             return this;
         }
+        public ContactsHelper SelectContact(String id)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]' and @value='"+id+"'])")).Click();
+            return this;
+        }
         public ContactsHelper CheckContacts(int index)
         {
             manager.Navigator.ReturnToHomePage();
@@ -232,6 +257,11 @@ namespace WebAddressbookTests
         public ContactsHelper InitContactModification(int index)
         {
             driver.FindElement(By.XPath("(//img[@alt='Edit'])["+ (index+1) +"]")).Click();
+            return this;
+        }
+        public ContactsHelper InitContactModification(String id)
+        {
+            driver.FindElement(By.XPath("(//a[@href='edit.php?id="+id+"'])")).Click();
             return this;
         }
         public ContactsHelper OpenContactView(int v)

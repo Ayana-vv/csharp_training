@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using System.Xml;
 using System.Xml.Serialization;
-using NUnit.Framework;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class MyContactCreationTests : AuthTestBase
+    public class MyContactCreationTests : ContactTestBase
     {
         public static IEnumerable<ContactsData> RandomGroupDataProvider()
         {
@@ -52,23 +52,36 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactsData> ContactsDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactsData>>(
-                 File.ReadAllText(@"contacts.json"));
+                 File.ReadAllText(@"contacts1.json"));
         }
         [Test, TestCaseSource("ContactsDataFromJsonFile")]
         public void MyContactCreationTests1(ContactsData contact)
         {
 
-            List<ContactsData> oldContacts = app.Contacts.GetContactList();
+            List<ContactsData> oldContacts = ContactsData.GetAllContacts();
 
             app.Contacts.CreateContact(contact);
 
             Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
 
-            List<ContactsData> newContacts = app.Contacts.GetContactList();
+            List<ContactsData> newContacts = ContactsData.GetAllContacts();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
+        }
+        [Test]
+        public void TestDBConnectivity()
+        {
+            DateTime start = DateTime.Now;
+            List<ContactsData> fromUi = ContactsData.GetAllContacts();
+            DateTime end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
+
+            start = DateTime.Now;
+            List<ContactsData> fromDb = ContactsData.GetAllContacts();
+            end = DateTime.Now;
+            System.Console.Out.WriteLine(end.Subtract(start));
         }
     }
 }
