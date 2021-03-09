@@ -125,5 +125,13 @@ namespace WebAddressbookTests
             end = DateTime.Now;
             System.Console.Out.WriteLine(end.Subtract(start));
         }
+        [Test]
+        public void TestDBConnectivity2()
+        {
+            foreach (ContactsData contact in ContactsData.GetAllContacts())
+            {
+                System.Console.Out.WriteLine(contact.Deprecated);
+            }
+        }
     }
 }
