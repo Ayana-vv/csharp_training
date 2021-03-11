@@ -15,10 +15,32 @@ namespace WebAddressbookTests
             : base(manager)
         {
         }
+        public void GroupCheck()
+        {
+            if (IsElementPresent(By.Name("selected[]")))
+            {
+                return;
+            }
+            GroupData group = new GroupData("111");
+            group.Header = "222";
+            group.Footer = "333";
+            CreateGroupG(group);
+            manager.Navigator.GoToGroupsPage();
+        }
+
         public GroupHelper Create(GroupData group)
         {
             manager.Navigator.GoToGroupsPage();
 
+            InitNewGroupCreation();
+            FillGroupForm(group);
+            SubmitGroupCreation();
+            ReturnToGroupsPage();
+            return this;
+        }
+        public GroupHelper CreateGroupG(GroupData group)
+        {
+            manager.Navigator.GoToGroupsPage();
             InitNewGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();

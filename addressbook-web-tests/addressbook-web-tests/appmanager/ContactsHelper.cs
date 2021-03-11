@@ -8,7 +8,6 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-//using System.Text.RegularExpressions;
 
 namespace WebAddressbookTests
 {
@@ -131,7 +130,7 @@ namespace WebAddressbookTests
 
             manager.Navigator.ReturnToHomePage();
             return this;
-        }
+        }        
         public ContactsHelper Remove(int p)
         {
             manager.Navigator.ReturnToHomePage();
@@ -345,6 +344,29 @@ namespace WebAddressbookTests
         private void CommitDeleteContactFromGroup()
         {
             driver.FindElement(By.Name("remove")).Click();
+        }
+        public void ContactCheck()
+        {
+            if (IsElementPresent(By.XPath("//img[@alt='Edit']")))
+            {
+                return;
+            }
+            ContactsData contact = new ContactsData("HHH", "NNN");
+            CreateContactC(contact);
+            manager.Navigator.ReturnToHomePage();
+        }
+        public ContactsHelper CreateContactC(ContactsData contact)
+        {
+            GoToAddNewContactPage();
+            FillContactForm(contact);
+            SubmitContactCreation();
+            manager.Navigator.ReturnToHomePage();
+            return this;
+        }
+        public string GetContactId()
+        {
+            manager.Navigator.ReturnToHomePage();
+            return driver.FindElements(By.XPath("//tr/td/input[@name='selected[]']")).Last().GetAttribute("value");
         }
     }
 }
