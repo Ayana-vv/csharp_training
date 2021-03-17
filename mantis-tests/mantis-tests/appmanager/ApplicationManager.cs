@@ -16,10 +16,6 @@ namespace mantis_tests
         protected IWebDriver driver;
         protected string baseURL;
 
-        public RegistrationHelper Registration { get; private set; }
-
-        protected bool acceptNextAlert = true;
-                
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
@@ -27,6 +23,8 @@ namespace mantis_tests
             driver = new ChromeDriver();
             baseURL = "http://localhost/";
             Registration = new RegistrationHelper(this);
+            Ftp = new FtpHelper(this);
+            Mail = new MailHelper(this); 
         }
         ~ApplicationManager() 
         {            
@@ -44,7 +42,7 @@ namespace mantis_tests
             if (! app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-1.2.17/login_page.php";
+                newInstance.driver.Url = "http://localhost/mantisbt-2.25.0/login_page.php";
                 app.Value = newInstance;                
             }
             return app.Value;
@@ -101,5 +99,10 @@ namespace mantis_tests
                 acceptNextAlert = true;
             }
         }
+        public RegistrationHelper Registration { get; private set; }
+        public FtpHelper Ftp { get; private set; }
+        public MailHelper Mail { get; private set; }
+
+        protected bool acceptNextAlert = true;
     }
 }

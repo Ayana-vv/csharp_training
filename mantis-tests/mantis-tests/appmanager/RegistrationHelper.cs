@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using OpenQA.Selenium;
 
 namespace mantis_tests
 {
@@ -14,29 +16,46 @@ namespace mantis_tests
         {
             OpenMainPage();
             OpenRegistrationForm();
-            FillRegisgrationForm(account);
+            FillRegistrationForm(account);
             SubmitRegistration();
-
+            String url = GetConfirmationUrl(account);
+            FillRasswordForm(url, account);
+            SubmitPasswordForm();
+        }
+        private string GetConfirmationUrl(AccountData account)
+        {
+            String message = manager.Mail.GetLastMail(account);
+            Match match = Regex.Match(message, @"http://\S*");
+            return match.Value;
+        }
+        private void FillRasswordForm(string url, AccountData account)
+        {
+            driver.Url = url;
+            driver.FindElement(By.Name("password")).SendKeys(account.Password);
+            driver.FindElement(By.Name("password_confirm")).SendKeys(account.Password);
+        }
+        private void SubmitPasswordForm()
+        {
+            driver.FindElement(By.XPath("//input[2]")).Click(); ;
         }
 
         private void OpenRegistrationForm()
         {
-            driver.FindElement().Click();
+            driver.FindElement(By.LinkText("Зарегистрировать новую учётную запись")).Click();
         }
-
         private void SubmitRegistration()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.XPath("//input[2]")).Click();
         }
-
-        private void FillRegisgrationForm(AccountData account)
+        private void FillRegistrationForm(AccountData account)
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.Name("username")).SendKeys(account.Name);
+            driver.FindElement(By.Name("email")).SendKeys(account.Email);
         }
 
         private void OpenMainPage()
         {
-            managers.Driver.Url = "http://localhost/mantisbt-1.2.17/login_page.php";
+            manager.Driver.Url = "http://localhost/mantisbt-2.25.0/login_page.php";
         }
     }
 }
