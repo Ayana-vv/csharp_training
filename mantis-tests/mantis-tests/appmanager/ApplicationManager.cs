@@ -15,6 +15,9 @@ namespace mantis_tests
     {
         protected IWebDriver driver;
         protected string baseURL;
+        protected NavigationHelper navigationHelper;
+        protected LoginHelper loginHelper;
+        protected ProjectHelper projectHelper;
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
@@ -104,5 +107,26 @@ namespace mantis_tests
         public MailHelper Mail { get; private set; }
 
         protected bool acceptNextAlert = true;
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+        }
+        public NavigationHelper Navigator
+        {
+            get
+            {
+                return navigationHelper;
+            }
+        }
+        public ProjectHelper Project
+        {
+            get
+            {
+                return projectHelper;
+            }
+        }
     }
 }
