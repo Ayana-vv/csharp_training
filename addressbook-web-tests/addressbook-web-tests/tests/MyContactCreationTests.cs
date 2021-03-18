@@ -14,49 +14,28 @@ using System.Linq;
 namespace WebAddressbookTests
 {
     [TestFixture]
-    public class MyContactCreationTests : ContactTestBase
-    {
-        public static IEnumerable<ContactsData> RandomGroupDataProvider()
+    public class MyContactCreationTests : AuthTestBase
+    {        
+        [Test]
+        public void MyContactCreationTests1()
         {
-            List<ContactsData> contact = new List<ContactsData>();
-            for (int i = 0; i < 5; i++)
-            {
-                contact.Add(new ContactsData(GenerateRandomString(10), GenerateRandomString(10))
-                {
-                    Mname = GenerateRandomString(20),
-                    Nname = GenerateRandomString(20),
-                    Company = GenerateRandomString(20),
-                    Title = GenerateRandomString(20),
-                    Address = GenerateRandomString(20),
-                    Home = GenerateRandomString(20),
-                    Mobile = GenerateRandomString(20),
-                    Work = GenerateRandomString(20),
-                    Fax = GenerateRandomString(20),
-                    Email = GenerateRandomString(20),
-                    Email2 = GenerateRandomString(20),
-                    Email3 = GenerateRandomString(20),
-                    Homepage = GenerateRandomString(20),
-                    Address2 = GenerateRandomString(20),
-                    Phone2 = GenerateRandomString(20),
-                    Notes = GenerateRandomString(20),
-                });
-            }
-            return contact;
-        }
-        public static IEnumerable<ContactsData> ContactsDataFromXmlFile()
-        {
-            return (List<ContactsData>)
-                new XmlSerializer(typeof(List<ContactsData>))
-                .Deserialize(new StreamReader(@"contacts.xml"));
-        }
-        public static IEnumerable<ContactsData> ContactsDataFromJsonFile()
-        {
-            return JsonConvert.DeserializeObject<List<ContactsData>>(
-                 File.ReadAllText(@"contacts1.json"));
-        }
-        [Test, TestCaseSource("ContactsDataFromJsonFile")]
-        public void MyContactCreationTests1(ContactsData contact)
-        {
+            ContactsData contact = new ContactsData("Liam", "AAA");
+            contact.Mname = "MMM";
+            contact.Nname = "NNN";
+            contact.Title = null;
+            contact.Company = "f";
+            contact.Address = "g";
+            contact.Home = "12345";
+            contact.Mobile = null;
+            contact.Work = "777";
+            contact.Fax = "333";
+            contact.Email = "j@kk.com";
+            contact.Email2 = null;
+            contact.Email3 = "m@nn.com";
+            contact.Homepage = "ooo5";
+            contact.Address2 = null;
+            contact.Phone2 = "7654";
+            contact.Notes = null;
 
             List<ContactsData> oldContacts = ContactsData.GetAllContacts();
 
@@ -69,19 +48,6 @@ namespace WebAddressbookTests
             oldContacts.Sort();
             newContacts.Sort();
             Assert.AreEqual(oldContacts, newContacts);
-        }
-        [Test]
-        public void TestDBConnectivity()
-        {
-            DateTime start = DateTime.Now;
-            List<ContactsData> fromUi = ContactsData.GetAllContacts();
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
-
-            start = DateTime.Now;
-            List<ContactsData> fromDb = ContactsData.GetAllContacts();
-            end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
-        }
+        }        
     }
 }

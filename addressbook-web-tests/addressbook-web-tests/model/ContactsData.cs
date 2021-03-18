@@ -14,6 +14,8 @@ namespace WebAddressbookTests
         public string allPhones;
         public string allEmails;
         public string fullInfo;
+        public string otherInfo1;
+        public string otherInfo2;
 
         public ContactsData(string fname, string lname)
         {
@@ -134,6 +136,25 @@ namespace WebAddressbookTests
             {
                 allPhones = value;
             }
+        }        
+        public string OtherInfo1
+        {
+            get
+            {
+                if (otherInfo1 != null)
+                {
+                    return otherInfo1;
+                }
+                else
+                {
+                    return (CleanUp(Title) + "\r\n" + CleanUp(Company) + "\r\n" +
+                        CleanUp(Address)).Trim();
+                }
+            }
+            set
+            {
+                otherInfo1 = value;
+            }
         }
         public string AllEmails
         {
@@ -152,6 +173,25 @@ namespace WebAddressbookTests
             set
             {
                 allEmails = value;
+            }
+        }
+        public string OtherInfo2
+        {
+            get
+            {
+                if (otherInfo2 != null)
+                {
+                    return otherInfo2;
+                }
+                else
+                {
+                    return (CleanUp(Address2) + "\r\n" + CleanUp(Phone2) + "\r\n" +
+                        CleanUp(Notes)).Trim();
+                }
+            }
+            set
+            {
+                otherInfo1 = value;
             }
         }
         public string CleanUp(string phone)

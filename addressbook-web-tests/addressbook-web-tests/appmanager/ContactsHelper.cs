@@ -64,12 +64,15 @@ namespace WebAddressbookTests
             string home = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobile = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string work = driver.FindElement(By.Name("work")).GetAttribute("value");
-            //string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
-                       
+
+            string address2 = driver.FindElement(By.Name("address2")).GetAttribute("value");
+            string phone2 = driver.FindElement(By.Name("phone2")).GetAttribute("value");
+            string notes = driver.FindElement(By.Name("notes")).GetAttribute("value");
+
             return new ContactsData(fname, lname)
             {
                 Mname = mname,
@@ -83,12 +86,34 @@ namespace WebAddressbookTests
                 Email = email,
                 Email2 = email2,
                 Email3 = email3,
+                Address2 = address2,
+                Phone2 = phone2,
+                Notes = notes,
 
                 fullInfo = fname + " " + mname + " " + lname + "\r\n" + nname + "\r\n" +
-                title + "\r\n" + company + "\r\n" + address + "\r\n\r\n" +
+                EditOtherInfo1(title) + "\r\n" + EditOtherInfo1(company) + "\r\n" +
+                EditOtherInfo1(address) + "\r\n\r\n" +
                 EditPhone(home) + EditPhone(mobile) + EditPhone(work) + "\r\n" +
-                EditEmail(email) + EditEmail(email2) + EditEmail(email3)
-            };
+                EditEmail(email) + EditEmail(email2) + EditEmail(email3) + "\r\n" +
+                EditOtherInfo2(address2) + "\r\n\r\n" + EditOtherInfo2(phone2) + "\r\n\r\n" +
+                EditOtherInfo2(notes)
+            };            
+            string EditOtherInfo1(string Title)
+            {
+                if (Title != "")
+                {
+                    if (Title == title || Title == company)
+                    {
+                        if (Title == title)
+                        {
+                            return Title + "\r\n";
+                        }
+                        return Title + "\r\n";
+                    }
+                    return Title + "\r\n";
+                }
+                return Title;
+            }
             string EditPhone(string Phone)
             {
                 if (Phone != "")
@@ -104,14 +129,14 @@ namespace WebAddressbookTests
                     return "W: " + Phone + "\r\n";
                 }
                 return Phone;
-            }
+            }            
             string EditEmail(string Email)
             {
                 if (Email != "")
                 {
                     if (Email == email || Email == email2)
                     {
-                        if (Email == home)
+                        if (Email == email)
                         {
                             return Email + "\r\n";
                         }
@@ -120,6 +145,22 @@ namespace WebAddressbookTests
                     return Email + "\r\n";
                 }
                 return Email;
+            }
+            string EditOtherInfo2(string Address2)
+            {
+                if (Address2 != "")
+                {
+                    if (Address2 == address2 || Address2 == phone2)
+                    {
+                        if (Address2 == address2)
+                        {
+                            return Address2 + "\r\n";
+                        }
+                        return Address2 + "\r\n";
+                    }
+                    return Address2 + "\r\n";
+                }
+                return Address2;
             }
         }
         public ContactsHelper CreateContact(ContactsData contact)
