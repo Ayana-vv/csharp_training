@@ -23,10 +23,15 @@ namespace mantis_tests
             return project;
         }
 
-        [Test, TestCaseSource("RandomDataProvider")]
-        public void ProjectCreationTest(ProjectData project)
+        [Test]
+        public void ProjectCreationTest(Mantis.ProjectData project)
         {
-            List<ProjectData> oldProjects = app.Project.GetAllFromUI();
+            AccountData account = new AccountData()
+            {
+                Username = "administrator",
+                Password = "qwerty123"
+            };
+            List<ProjectData> oldProjects = app.API.GetAllProject(account);
 
             app.Project.Creation(project);
 

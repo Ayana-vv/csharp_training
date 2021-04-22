@@ -29,6 +29,9 @@ namespace mantis_tests
             Registration = new RegistrationHelper(this);
             Ftp = new FtpHelper(this);
             Mail = new MailHelper(this);
+            navigationHelper = new NavigationHelper(this);
+            loginHelper = new LoginHelper(this);
+            projectHelper = new ProjectHelper(this);
             Admin = new AdminHelper(this, baseURL);
             API = new APIHelper(this);
         }

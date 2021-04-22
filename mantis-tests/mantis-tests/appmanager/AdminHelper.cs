@@ -49,7 +49,7 @@ namespace mantis_tests
         private IWebDriver OpenAppAndLogin()
         {
             IWebDriver driver = new SimpleBrowserDriver();
-            driver.Url = baseUrl + "login_page.php";
+            driver.Url = baseUrl + "/login_page.php";
             driver.FindElement(By.Name("username")).SendKeys("administrator");
             driver.FindElement(By.CssSelector("input[type=\"submit\"]")).Click();
             driver.FindElement(By.Name("password")).SendKeys("root");

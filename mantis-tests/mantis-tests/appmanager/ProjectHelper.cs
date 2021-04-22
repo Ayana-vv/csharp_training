@@ -37,9 +37,9 @@ namespace mantis_tests
             manager.Navigator.GoToProjectPage();
             if (!IsProjectExist())
             {
-                ProjectData project = new ProjectData()
+                M.ProjectData project = new Man.ProjectData()
                 {
-                    Name = "ddd"
+                    Nname = "ddd"
                 };
                 Creation(project);
             }
@@ -96,6 +96,30 @@ namespace mantis_tests
         private bool IsProjectExist()
         {
             return IsElementPresent(By.CssSelector("td > a"));
+        }
+        public void CheckProjects(AccountData account, ProjectData project)
+        {
+            if (GetProjectList(account).Count == 0)
+            {
+                Create(account, project);
+            }
+        }
+        public List<ProjectData> GetProjectList(AccountData account)
+        {
+            List<ProjectData> list = new List<ProjectData>();
+
+            Mantis.MantisConnectPortTypeClient client = new Mantis.MantisConnectPortTypeClient();
+            Mantis.ProjectData[] projects = client.mc_projects_get_user_accessible(account.Name, account.Password);
+            foreach (Mantis.ProjectData project in projects)
+            {
+                list.Add(new ProjectData()
+                {
+                    Id = project.id,
+                    Name = project.name,
+                    Description = project.description
+                });
+            }
+            return list;
         }
     }
 }
